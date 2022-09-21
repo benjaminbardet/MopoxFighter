@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -6,9 +8,9 @@ namespace MopoxFighter;
 
 public class Game1 : Game
 {
-    private Texture2D ballTexture;
     private Vector2 ballPosition;
     private float ballSpeed;
+    private AnimatedSprite animatedSprite;
     
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -18,6 +20,7 @@ public class Game1 : Game
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        Debug.WriteLine("test");
     }
 
     protected override void Initialize()
@@ -25,49 +28,47 @@ public class Game1 : Game
         // TODO: Add your initialization logic here
         ballPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2, 
             _graphics.PreferredBackBufferHeight / 2);
-        ballSpeed = 400f;
+        ballSpeed = 100f;
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        // TODO: use this.Content to load your game content 
-        ballTexture = Content.Load<Texture2D>("ball");
+        
+        Texture2D texture = Content.Load<Texture2D>("phant");
+        animatedSprite = new AnimatedSprite(texture, 1, 4);
     }
 
     protected override void Update(GameTime gameTime)
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-
-        // TODO: Add your update logic here
         
         var kstate = Keyboard.GetState();
         if (kstate.IsKeyDown(Keys.Up))
         {
             ballPosition.Y -= ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            animatedSprite.Update();
         }
         if (kstate.IsKeyDown(Keys.Down))
         {
             ballPosition.Y += ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            animatedSprite.Update();
         }
         if (kstate.IsKeyDown(Keys.Left))
         {
             ballPosition.X -= ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            animatedSprite.Update();
         }
         if (kstate.IsKeyDown(Keys.Right))
         {
             ballPosition.X += ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+            animatedSprite.Update();
         }
         
-        if (kstate.IsKeyDown(Keys.Space))
-        {
-            ballPosition.Y -= 15;
-        }
         // TODO: Add your update logic here
-        if(ballPosition.X > _graphics.PreferredBackBufferWidth - ballTexture.Width / 2)
+        /*if(ballPosition.X > _graphics.PreferredBackBufferWidth - ballTexture.Width / 2)
         {
             ballPosition.X = _graphics.PreferredBackBufferWidth - ballTexture.Width / 2;
         }
@@ -83,27 +84,16 @@ public class Game1 : Game
         else if(ballPosition.Y < ballTexture.Height / 2)
         {
             ballPosition.Y = ballTexture.Height / 2;
-        }
-
+        }*/
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        // TODO: Add your drawing code here
-        _spriteBatch.Begin();
-        _spriteBatch.Draw(ballTexture,
-            ballPosition,
-            null,
-            Color.White,
-            0f,
-            new Vector2(ballTexture.Width / 2, ballTexture.Height / 2),
-            Vector2.One,
-            SpriteEffects.None,
-            0f);
-        _spriteBatch.End();
+        GraphicsDevice.Clear(Color.White);
+        
+        animatedSprite.Draw(_spriteBatch, ballPosition);
+        Debug.WriteLine("test");
 
         base.Draw(gameTime);
     }

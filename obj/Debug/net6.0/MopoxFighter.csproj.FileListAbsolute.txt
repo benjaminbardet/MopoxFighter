@@ -23,4 +23,6 @@ D:\Documents\MopoxFighter\obj\Debug\net6.0\refint\MopoxFighter.dll
 D:\Documents\MopoxFighter\obj\Debug\net6.0\MopoxFighter.pdb
 D:\Documents\MopoxFighter\obj\Debug\net6.0\MopoxFighter.genruntimeconfig.cache
 D:\Documents\MopoxFighter\obj\Debug\net6.0\ref\MopoxFighter.dll
-D:\Documents\MopoxFighter\bin\Debug\net6.0\Content\ball.xnb
+D:\Documents\MopoxFighter\bin\Debug\net6.0\Content\Ball and Chain Bot\run.xnb
+D:\Documents\MopoxFighter\bin\Debug\net6.0\Content\run.xnb
+D:\Documents\MopoxFighter\bin\Debug\net6.0\Content\phant.xnb
