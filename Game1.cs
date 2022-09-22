@@ -49,23 +49,20 @@ public class Game1 : Game
         if (kstate.IsKeyDown(Keys.Up))
         {
             ballPosition.Y -= ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            animatedSprite.Update();
         }
         if (kstate.IsKeyDown(Keys.Down))
         {
             ballPosition.Y += ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            animatedSprite.Update();
         }
         if (kstate.IsKeyDown(Keys.Left))
         {
             ballPosition.X -= ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            animatedSprite.Update();
         }
         if (kstate.IsKeyDown(Keys.Right))
         {
             ballPosition.X += ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            animatedSprite.Update();
         }
+        animatedSprite.Update((double)gameTime.ElapsedGameTime.TotalSeconds);
         
         // TODO: Add your update logic here
         /*if(ballPosition.X > _graphics.PreferredBackBufferWidth - ballTexture.Width / 2)

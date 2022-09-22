@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
 namespace MopoxFighter;
@@ -11,6 +12,8 @@ public class AnimatedSprite
     public int Columns { get; set; }
     private int currentFrame;
     private int totalFrames;
+    private double timeToFrame;
+    private double lastUpdate;
     
     public AnimatedSprite(Texture2D texture, int rows, int columns)
     {
@@ -19,15 +22,24 @@ public class AnimatedSprite
         Columns = columns;
         currentFrame = 0;
         totalFrames = Rows * Columns;
+        timeToFrame = 0.25;  
+        lastUpdate = 0;
     }
     
-    public void Update(int type=0)
+    public void Update(double time)
     {
-        currentFrame++;
-        if (currentFrame + 1 == Columns)
+        if (timeToFrame < lastUpdate)
         {
-            currentFrame = 0;
+            currentFrame++;
+            if (currentFrame + 1 == Columns)
+            {
+                currentFrame = 0;
+            }
+
+            lastUpdate = 0;
         }
+        lastUpdate += time;
+        
     }
     
     public void Draw(SpriteBatch spriteBatch, Vector2 location)
